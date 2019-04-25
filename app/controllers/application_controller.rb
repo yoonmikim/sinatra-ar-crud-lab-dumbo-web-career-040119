@@ -6,6 +6,7 @@ class ApplicationController < Sinatra::Base
   configure do
     set :public_folder, 'public'
     set :views, 'app/views'
+    # set :method_override, true
   end
 
   get '/' do
@@ -39,6 +40,7 @@ class ApplicationController < Sinatra::Base
   
   patch '/articles/:id' do
     @article = Article.find(params[:id])
+    params.delete("_method")
     @article.update(params[:article])
     redirect to "/articles/#{ @article.id }"
   end
